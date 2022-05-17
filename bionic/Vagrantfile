@@ -1,0 +1,48 @@
+# defindo script
+$script_mysql = <<-SCRIPT
+apt-get update && \
+apt-get install -y mysql-server-5.7 && \
+mysql -e "create user 'phpuser'@'%' identified by 'pass';"
+SCRIPT
+
+
+
+
+Vagrant.configure("2") do |config|
+    config.vm.box = "ubuntu/bionic64"
+    #guest: porta da aplicação na vm "nginx", host: porta que ira usar para acessar externamente
+    # config.vm.network "forwarded_port", guest: 80, host: 8089
+
+    #cria uma rede privada para  acessar a maquina virtual somente do host
+    # config.vm.network "private_network", ip: ""
+
+    #cria uma rede dhcp
+    # config.vm.network "private_network", type: "dhcp"
+
+
+    # cria rede publica
+    config.vm.network "public_network", bridge: ''
+
+    # config.vm.provision "shell", inline: "echo Hello, World"
+    
+    # config.vm.provision "shell", inline: "echo Hello, World >> hello.txt"
+
+    # mapeia um arquivo da sua maquina para a maquina virtual
+    config.vm.synced_folder "./configs", "/configs"
+
+    # Desabilita a criação da pasta padrao 'Vagrant'
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+
+    # Automatizando comandos "guardando a chave publica automaticamente na pasta de chaves"
+    config.vm.provision "shell", inline: "cat /configs/teste.pub >> .ssh/authorized_keys"
+
+     # Automatizando comandos 
+     config.vm.provision "shell", inline: $script_mysql
+     
+    #primeiro vc pega o arquivo do mysql e alterar o bind-adress depois add esse comando pra deixar ele publico
+     config.vm.provision "shell", inline: "cat /configs/mysqld.cnf > /etc/mysql/mysql.conf.d/mysqld.cnf"
+
+    # restart mysql
+     config.vm.provision "shell", inline: "service mysql restart"
+
+  end
