@@ -6,7 +6,11 @@ vagrant init hashicorp/bionic64
 
 vagrant up
 
+vagrant up "maquina que quer subir"
+
 vagrant status
+
+vagrant status "maquina que quer ver"
 
 vagrant halt
 
@@ -18,6 +22,8 @@ vagrant reload
 
 vagrant destroy
 
+vagrant destroy -f "maquina que quer destruir"
+
 vagrant ssh-config
 
 vagrant provision
@@ -25,6 +31,10 @@ vagrant provision
 "é gerada uma pasta ssh assim que a VM é criada"
 
 vagrant destroy -f && vagrant up
+
+multimachine{
+tem que apontar a maquina q quer acessar "vagrant ssh mysql"
+}
 
 COMANDS LINUX:
 
