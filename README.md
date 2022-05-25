@@ -16,6 +16,8 @@ vagrant halt
 
 vagrant suspend
 
+vagrant validate
+
 vagrant ssh
 
 vagrant reload
@@ -35,6 +37,10 @@ vagrant destroy -f && vagrant up
 multimachine{
 tem que apontar a maquina q quer acessar "vagrant ssh mysql"
 }
+
+COMANDOS ANSIBLE:
+
+ansible-playbook --version
 
 COMANDS LINUX:
 
@@ -80,6 +86,10 @@ ssh -i 'chavePrivada' vagrant@ip
 
 cat /etc/mysql/mysql.conf.d/mysqld.cnf >> /configs/mysqld.cnf
 e altera bind-address para = 0.0.0.0
+
+chmod 600 /home/vagrant/teste - "define as permissoes dos arquivos"
+
+ls -al "verifica as permissoes dos arquivos"
 
 INSTALADOS:
 nginx: sudo apt-get install -y nginx
