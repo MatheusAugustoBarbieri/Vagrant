@@ -42,6 +42,8 @@ COMANDOS ANSIBLE:
 
 ansible-playbook --version
 
+ansible-playbook -i /vagrant/configs/ansible/hosts /vagrant/configs/ansible/playbook.yml
+
 COMANDS LINUX:
 
 ls
